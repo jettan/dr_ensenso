@@ -35,6 +35,14 @@ std::optional<NxLibItem> findCameraByType(std::string const & type) {
 	return {};
 }
 
+std::optional<bool> isCameraOpened(std::string const& serial) {
+	std::optional<NxLibItem> camera = findCameraBySerial(serial);
+	if (camera.has_value()) {
+		return camera.value()[itmStatus][itmOpen].asBool();
+	}
+	return {};
+}
+
 namespace {
 	/// Open an optional camera, or return nothing.
 	std::optional<NxLibItem> openCamera(std::optional<NxLibItem> camera) {
